@@ -23,7 +23,7 @@ func init() {
 
 func main() {
 	// Add function handlers to trigger commands from discord chat
-	s.AddHandler(func(s *discordgo.Session, r *discordgo.Ready) { log.Println("Bot is up!") })
+	s.AddHandler(func(s *discordgo.Session, r *discordgo.Ready) { log.Println("AutoMuse is Running!") })
 	s.AddHandler(executionHandler)
 
 	err := s.Open()
@@ -61,7 +61,6 @@ func executionHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	if m.Content != "" {
 		if strings.Contains(m.Content, "play") && strings.Contains(m.Content, "youtube") && !strings.Contains(m.Content, "list") {
 			go queueSong(m.Content, m, v, voiceChannelID, channel)
-			log.Printf("In queue")
 		}
 
 		if strings.Contains(m.Content, "play") && strings.Contains(m.Content, "youtube") && strings.Contains(m.Content, "list") {

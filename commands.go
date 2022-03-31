@@ -11,7 +11,7 @@ import (
 	"google.golang.org/api/youtube/v3"
 )
 
-// Get & queue all videos in a YouTube Playlist
+// Get & Queue all videos in a YouTube Playlist
 func queuePlaylist(message string, m *discordgo.MessageCreate, v *VoiceInstance, channelID string, alreadyInChannel bool) {
 
 	// Split the message to get YT link
@@ -64,6 +64,7 @@ func queuePlaylist(message string, m *discordgo.MessageCreate, v *VoiceInstance,
 					url, err := client.GetStreamURL(video, format)
 					if err != nil {
 						log.Println(err)
+						return
 					} else {
 						song.VideoURL = url
 						queue = append(queue, song)
@@ -133,7 +134,7 @@ func queueSong(message string, m *discordgo.MessageCreate, v *VoiceInstance, cha
 			log.Println(err)
 		} else {
 
-			format := video.Formats.FindByQuality("medium") //TODO: Check if lower quality affects music quality
+			format := video.Formats.FindByQuality("medium")
 
 			// Fill Song Info
 			song = Song{
